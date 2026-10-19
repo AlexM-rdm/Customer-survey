@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP Autonomous Finance - Customer Voice</title>
+<style>
+  :root {
+    --accent: #0a6cff;
+    --accent-2: #00c6a7;
+    --ink: #0f172a;
+    --muted: #64748b;
+    --line: #e4e9f2;
+    --error: #e11d48;
+    --field-bg: #f8fafc;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #dbeafe 0%, transparent 55%),
+      radial-gradient(1000px 500px at 110% 10%, #ccfbf1 0%, transparent 50%),
+      #f1f5f9;
+    min-height: 100vh;
+    padding: 48px 20px 64px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card {
+    max-width: 760px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px -24px rgba(15, 23, 42, 0.25);
+    overflow: hidden;
+  }
+  .card-top {
+    height: 6px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  }
+  .card-body { padding: 44px 44px 40px; }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: #eef4ff;
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+  }
+  .required-note { color: var(--muted); font-size: 14px; margin: 0 0 8px; }
+  .required-note .star { color: var(--error); }
+
+  .section {
+    margin-top: 40px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+  }
+  .section:first-of-type { border-top: none; padding-top: 8px; }
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+  }
+  .section-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  .section-desc em { color: #475569; }
+
+  .question { margin-top: 26px; }
+  .q-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .q-label .star { color: var(--error); margin-left: 2px; }
+
+  .question input[type="text"],
+  .question input[type="email"],
+  .question textarea {
+    width: 100%;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--field-bg);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    padding: 15px 16px;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s, background .15s;
+  }
+  .question textarea { min-height: 150px; resize: vertical; line-height: 1.6; }
+  .question input::placeholder,
+  .question textarea::placeholder { color: #94a3b8; }
+  .question input:focus,
+  .question textarea:focus {
+    background: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(10, 108, 255, 0.12);
+  }
+  .question.invalid input,
+  .question.invalid textarea {
+    border-color: var(--error);
+    box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.10);
+  }
+  .error-msg {
+    display: none;
+    color: var(--error);
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 8px;
+  }
+  .question.invalid .error-msg { display: block; }
+
+  .actions { margin-top: 36px; }
+  .btn-primary {
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: var(--radius);
+    padding: 15px 36px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    box-shadow: 0 10px 24px -10px rgba(10, 108, 255, 0.6);
+    transition: transform .08s ease, box-shadow .15s ease, filter .15s ease;
+  }
+  .btn-primary:hover { filter: brightness(1.04); box-shadow: 0 14px 30px -10px rgba(10, 108, 255, 0.65); }
+  .btn-primary:active { transform: translateY(1px); }
+
+  .hint { margin-top: 18px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+  .footer-note {
+    max-width: 760px;
+    margin: 20px auto 0;
+    padding: 0 8px;
+    font-size: 12px;
+    color: #94a3b8;
+    text-align: center;
+  }
+
+  @media (max-width: 560px) {
+    .card-body { padding: 28px 22px 30px; }
+    h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-top"></div>
+    <div class="card-body">
+      <span class="eyebrow">Customer Voice</span>
+      <h1>SAP Autonomous Finance</h1>
+      <p class="required-note"><span class="star">*</span> Required</p>
+
+      <!-- No server/keys: Submit opens the user's own mail client via mailto: -->
+      <form id="survey">
+
+        <div class="section">
+          <h2 class="section-title">Your details</h2>
+
+          <div class="question" id="q-company">
+            <label class="q-label" for="company">Company Name (and country) <span class="star">*</span></label>
+            <input type="text" id="company" name="Company Name (and country)" placeholder="e.g. Contoso GmbH, Germany">
+            <div class="error-msg">This question is required.</div>
+          </div>
+
+          <div class="question" id="q-name">
+            <label class="q-label" for="fullname">Your first name, last name and job title <span class="star">*</span></label>
+            <input type="text" id="fullname" name="Your first name, last name and job title" placeholder="e.g. Jane Doe, Head of Finance">
+            <div class="error-msg">This question is required.</div>
+          </div>
+
+          <div class="question" id="q-email">
+            <label class="q-label" for="email">Business Email <span class="star">*</span></label>
+            <input type="email" id="email" name="Business Email" placeholder="you@company.com">
+            <div class="error-msg">Please enter a valid email address.</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-title">Your Quote and Impact</h2>
+          <p class="section-desc">
+            Share your SAP Finance AI statement &mdash; either an existing benefit or an expected
+            future outcome. Please name the specific SAP Finance Assistant or Agent and include
+            metrics or expected impact where possible
+            <em>(e.g., Financial Closing Assistant, Accounts Payable Assistant, Billing Assistant,
+            Financial Planning Assistant, etc)</em>
+          </p>
+
+          <div class="question" id="q-financeai">
+            <label class="q-label" for="financeai">Provide your Finance AI text here: <span class="star">*</span></label>
+            <textarea id="financeai" name="Your Finance AI statement" placeholder="Enter your answer"></textarea>
+            <div class="error-msg">This question is required.</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary">Submit</button>
+          <p class="hint">
+            Clicking <strong>Submit</strong> opens your email program with your answers already
+            filled in &mdash; just press Send there to deliver them to us.
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <p class="footer-note">Never give out your password.</p>
+
+<script>
+  (function () {
+    var RECIPIENT = "";
+    var SUBJECT = "SAP Autonomous Finance - Customer Voice";
+
+    var form = document.getElementById("survey");
+    var fields = [
+      { id: "company",   label: "Company Name (and country)",               type: "text"  },
+      { id: "fullname",  label: "Your first name, last name and job title", type: "text"  },
+      { id: "email",     label: "Business Email",                           type: "email" },
+      { id: "financeai", label: "Your Finance AI statement",                type: "text"  }
+    ];
+
+    function emailValid(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    }
+
+    // Validate all fields, toggle inline errors, return true if everything is valid.
+    function validate() {
+      var ok = true;
+      fields.forEach(function (f) {
+        var input = document.getElementById(f.id);
+        var wrap = input.closest(".question");
+        var val = input.value.trim();
+        var valid = f.type === "email" ? emailValid(val) : val.length > 0;
+        if (!valid) {
+          wrap.classList.add("invalid");
+          if (ok) input.focus();
+          ok = false;
+        } else {
+          wrap.classList.remove("invalid");
+        }
+      });
+      return ok;
+    }
+
+    // On Submit: validate, then build a mailto: link and open the mail client.
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!validate()) return;
+      var lines = fields.map(function (f) {
+        return f.label + ":\r\n" + document.getElementById(f.id).value.trim();
+      });
+      var body = "SAP Autonomous Finance - Customer Voice\r\n\r\n" + lines.join("\r\n\r\n");
+      var href = "mailto:" + RECIPIENT +
+                 "?subject=" + encodeURIComponent(SUBJECT) +
+                 "&body=" + encodeURIComponent(body);
+      window.location.href = href;
+    });
+
+    // Clear the error state on a field as soon as the user corrects it.
+    fields.forEach(function (f) {
+      document.getElementById(f.id).addEventListener("input", function () {
+        this.closest(".question").classList.remove("invalid");
+      });
+    });
+  })();
+</script>
+</body>
+</html>
